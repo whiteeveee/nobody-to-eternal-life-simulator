@@ -1,0 +1,81 @@
+[
+  {
+    "id": "M_RAND_001",
+    "type": "random",
+    "stage": "mortal",
+    "gate": { "ageMin": 0, "ageMax": 10 },
+    "text": "6岁：被家里人带去少年宫参加活动，你第一次发现原来“努力”是可以被表扬的。",
+    "baseWeight": 100,
+    "effects": [{ "op": "addStat", "key": "I", "delta": 2 }],
+    "tags": ["童年"]
+  },
+  {
+    "id": "M_RAND_002",
+    "type": "random",
+    "stage": "mortal",
+    "gate": { "ageMin": 0, "ageMax": 10 },
+    "text": "8岁：抢同桌零食被叫家长，你在全班面前社死了一次。",
+    "baseWeight": 100,
+    "effects": [{ "op": "addStat", "key": "M", "delta": -1 }],
+    "tags": ["童年","社死"]
+  },
+  {
+    "id": "M_CHOICE_010",
+    "type": "choice",
+    "stage": "mortal",
+    "gate": { "ageEq": 10 },
+    "text": "你要上初中了：你打算怎么过？",
+    "choices": [
+      { "key": "A", "text": "认真学习，别让家里失望", "effects": [{ "op": "addStat", "key": "I", "delta": 5 }, { "op": "addStat", "key": "B", "delta": -1 }] },
+      { "key": "B", "text": "照样玩，能过就行", "effects": [{ "op": "addStat", "key": "M", "delta": 2 }, { "op": "addStat", "key": "I", "delta": -2 }] }
+    ],
+    "tags": ["升学","分支"]
+  },
+
+  {
+    "id": "X_RAND_QI_001",
+    "type": "random",
+    "stage": "xiuxian",
+    "realm": "qi",
+    "gate": { "ageMin": 100, "ageMax": 120 },
+    "text": "你签了第一份《修炼劳动合同》：白天修炼，晚上写日报，周末加班补灵力。",
+    "baseWeight": 120,
+    "effects": [{ "op": "addStat", "key": "P", "delta": 40 }, { "op": "addStat", "key": "D", "delta": 30 }],
+    "tags": ["资本修仙","打工"]
+  },
+  {
+    "id": "X_CHOICE_QI_020",
+    "type": "choice",
+    "stage": "xiuxian",
+    "realm": "qi",
+    "gate": { "ageEq": 120 },
+    "text": "主管修士问：要不要上“提速药”？（副作用未知）",
+    "choices": [
+      { "key": "A", "text": "上药，先把修为卷上去", "effects": [{ "op": "addStat", "key": "P", "delta": 80 }, { "op": "addStat", "key": "D", "delta": 60 }] },
+      { "key": "B", "text": "不碰，慢慢练", "effects": [{ "op": "addStat", "key": "P", "delta": 40 }, { "op": "addStat", "key": "D", "delta": -20 }] }
+    ],
+    "tags": ["打药","分支"]
+  },
+
+  {
+    "id": "X_BREAK_QI_TO_ZHUJI",
+    "type": "breakthrough",
+    "stage": "xiuxian",
+    "realm": "qi",
+    "gate": { "ageMin": 160, "ageMax": 200, "pGte": 200, "avgGte": 200 },
+    "text": "天道审计发来通知：请解释你的修为增长来源与风险敞口。",
+    "outcomes": [
+      { "key": "PASS", "effects": [{ "op": "setRealm", "value": "zhuji" }, { "op": "setAgeCap", "value": 350 }, { "op": "addStat", "key": "D", "delta": 50 }] },
+      { "key": "FIX", "effects": [{ "op": "setFlag", "key": "NEED_FIX_CHAIN", "value": true }, { "op": "addStat", "key": "D", "delta": 120 }] },
+      { "key": "FAIL", "effects": [{ "op": "addStat", "key": "P", "delta": -50 }, { "op": "addStat", "key": "D", "delta": 80 }] }
+    ],
+    "tags": ["道审","突破"]
+  },
+
+  {
+    "id": "X_END_ASCEND",
+    "type": "ending",
+    "text": "雷落下来的时候，你突然想起一句话：我不是来赢的，我是来结束的。你结账成功，退出系统。",
+    "metaReward": { "pointsMin": 8, "pointsMax": 12, "unlock": ["称号:已结账之人"] }
+  }
+]
